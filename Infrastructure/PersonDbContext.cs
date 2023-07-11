@@ -12,7 +12,7 @@ namespace Infrastructure
         {
         }
 
-        public DbSet<Person> Person { get; set; }
+        public DbSet<Persons> Person { get; set; }
 
         // Diğer sınıf tanımlamaları...
 
@@ -21,8 +21,8 @@ namespace Infrastructure
             // Bu metodda veritabanı tablolarının nasıl oluşturulacağı ve ilişkilendirileceği belirtilir.
             // Örneğin, tabloların isimlendirme kuralları, ilişkilerin tanımlanması vb. işlemler burada yapılabilir.
             
-            modelBuilder.Entity<Person>().ToTable("Person");
-            modelBuilder.Entity<Person>().HasKey(p => p.Id);
+            modelBuilder.Entity<Persons>().ToTable("Person");
+            modelBuilder.Entity<Persons>().HasKey(p => p.Id);
 
             // Eğer varsa diğer tablo ve ilişkilerin konfigürasyonları da burada yapılmalı.
         }

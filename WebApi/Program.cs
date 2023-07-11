@@ -1,7 +1,10 @@
 using Application;
 using Application.Abstractions;
+using Application.Person.Commands;
+using Application.Person.Queries;
 using Infrastructure;
 using Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,9 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 var cs = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<PersonDbContext>(opt => opt.UseSqlServer(cs)); ;
 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreatePerson)));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +39,15 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.MapGet("/{id:int}", async (IMediator mediator, int id) =>
+{
+    var getPerson = new GetPersonById { Id = id };
+    var person = await mediator.Send(getPerson);
+
+    // Handle the response and return it
+    // ...
+});
 
 app.MapControllers();
 

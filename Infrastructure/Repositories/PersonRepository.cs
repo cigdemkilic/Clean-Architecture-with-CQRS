@@ -15,7 +15,7 @@ public class PersonRepository : IPersonRepository
         _context = context;
     }
 
-    public async Task<Person> AddPerson(Person toCreate)
+    public async Task<Persons> AddPerson(Persons toCreate)
     {
         _context.Person.Add(toCreate);
 
@@ -37,17 +37,17 @@ public class PersonRepository : IPersonRepository
     }
 
    
-    public async Task<ICollection<Person>> GetAll()
+    public async Task<ICollection<Persons>> GetAll()
     {
         return await _context.Person.ToListAsync();
     }
 
-    public async Task<Person> GetPersonById(int personId)
+    public async Task<Persons> GetPersonById(int personId)
     {
         return await _context.Person.FirstOrDefaultAsync(p => p.Id == personId);
     }
 
-    public async Task<Person> UpdatePerson(int personId, string name, string email)
+    public async Task<Persons> UpdatePerson(int personId, string name, string email)
     {
         var person = await _context.Person.FirstOrDefaultAsync(p => p.Id == personId);
         person.Name = name;
