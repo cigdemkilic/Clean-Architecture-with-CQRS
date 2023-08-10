@@ -46,6 +46,14 @@ public class PersonRepository : IPersonRepository
     {
         return await _context.Person.FirstOrDefaultAsync(p => p.Id == personId);
     }
+    
+    private async Task<IResult> GetPersonById(IMediator mediator, int id)
+{
+    var getPerson = new GetPersonById { Id = id };
+    var person = await mediator.Send(getPerson);
+    
+    return TypedResults.Ok(person);
+}
 
     public async Task<Persons> UpdatePerson(int personId, string name, string email)
     {

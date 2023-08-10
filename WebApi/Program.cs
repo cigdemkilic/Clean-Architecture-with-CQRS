@@ -40,6 +40,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+builder.Services.AddMediatR(typeof(CreatePerson));
+
 app.MapGet("/{id:int}", async (IMediator mediator, int id) =>
 {
     var getPerson = new GetPersonById { Id = id };
